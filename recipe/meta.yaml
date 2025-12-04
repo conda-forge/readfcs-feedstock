@@ -1,13 +1,14 @@
 {% set name = "readfcs" %}
-{% set version = "1.1.8" %}
+{% set version = "2.1.0" %}
+{% set python_min = "3.10 " %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/readfcs-{{ version }}.tar.gz
-  sha256: dc10e1d7b31cd6b008f0fcdb8bae7d979cd71ae948d2927e5f201afaa72d6e93
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/readfcs-{{ version }}.tar.gz
+  sha256: d2907cc653a65902d8ef4609a3b4c6ef2ac3bb5c6d685ab6aa24cd6160504f88
 
 build:
   noarch: python
@@ -16,13 +17,12 @@ build:
 
 requirements:
   host:
-    - python >=3.7
+    - python {{ python_min }}
     - flit-core >=3.2,<4
     - pip
   run:
-    - python >=3.7
-    - lamin_utils
-    - fcsparser
+    - python >={{ python_min }},<3.13
+    - flowio
     - anndata
 
 test:
@@ -31,6 +31,7 @@ test:
   commands:
     - pip check
   requires:
+    - python {{ python_min }}
     - pip
 
 about:
